@@ -1,0 +1,13 @@
+Flutter および Dart プラグインをインストールする
+VS Codeを起動する。
+VS Codeの左のタブから「Extensions」(■が4つ有って1つ切り離されているマークのもの)
+「Extensions」の検索欄に「flutter」と入力しリストから[Flutter]を選択して[インストール]を
+クリックする。これにより、必要な Dart プラグインもインストールされる。
+
+Flutter Doctor でセットアップを検証する。
+VS Codeの「View」 > 「Command Palette…」を開く。
+「doctor」と入力し、 Flutter: Run Flutter Doctorを選択する。
+※「Flutter SDK」が見つからないと言われたら選択肢に「Locate」とあるものを選択し、
+ ポップアップされたディレクトリウィンドウから「$HOME/.zshrc」に書き込んだPATHの場所まで
+ 移動する。 「bin」ディレクトリを「Flutter SDK」ディレクトリとして選択することによって、
+ 「flutter doctor」が動作する。
