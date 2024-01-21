@@ -1,15 +1,17 @@
 iOS 用の Flutter アプリを開発するには、Xcode がインストールされた Mac が必要となる。
-このドキュメントは以下のページを参考にしている。
+## このドキュメントは以下のページを参考にしている。
     https://docs.flutter.dev/get-started/install/macos
 
-Xcode をインストールする。
+## Xcode をインストールする。
 Mac App Storeから安定バージョンのXcodeをインストールする。※Webダウンロードでも良い。
-以下をターミナルに流し、インストールしたXcodeを使えるようにする。
-※最新の安定バージョンを使用している場合以下を実行することによってXcodeを使用できるようになる。
- 古いバージョンを使用する場合はそれを配置したディレクトリを指定する必要がある。
- また、Flutterにて古いバージョンのXcodeを使用するのは非推奨。
-    sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-    sudo xcodebuild -runFirstLaunch
+以下をターミナルに流し、インストールしたXcodeを使えるようにする。[^1] [^2]
+[^1]:最新の安定バージョンを使用している場合、以下のコマンドをターミナルで実行することによってXcodeを使用できるようになる。
+[^2]:古いバージョンを使用する場合はそれを配置したディレクトリを指定する必要がある。 [^3]
+[^3]:また、Flutterにて古いバージョンのXcodeを使用するのは非推奨。
+```
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -runFirstLaunch
+```
 次にXcode ライセンス契約が署名されているか、Xcodeを開くか、
 以下をターミナルに流して、確認する。
     sudo xcodebuild -license
