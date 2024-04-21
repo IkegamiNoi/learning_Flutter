@@ -137,5 +137,16 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
 
+
 # フォルダ
-**/test_drive/
+/test_drive/*
+
+# test_drive
+!/test_drive/test_drive/
+/test_drive/test_drive/*
+!/test_drive/test_drive/lib
+
+# fist_flutter
+!/test_drive/first_flutter/
+/test_drive/first_flutter/*
+!/test_drive/first_flutter/lib/
