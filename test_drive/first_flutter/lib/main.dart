@@ -49,7 +49,7 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: [
           Text('A random AWESOME idea:'),
-          Text(pair.asLowerCase),                // ← Change to this.
+          BigCard(pair: pair),                // ← Change to this.
           
           // ↓ Add this.
           ElevatedButton(
@@ -64,5 +64,19 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(pair.asLowerCase);
   }
 }
