@@ -50,6 +50,11 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       body: Column(
+        /// 親であるColumnの中央から子を並べるようにする。
+        /// 縦にも横にも中央寄せになるが、Columnが左端寄せになっているため、BigCardも左寄せの見た目になっている。
+        /// デバッグを起動していると表示されるメニューバー右端の虫眼鏡をクリックすると「Widget Inspector」が表示される。
+        /// 「Widget Tree」上のカーソルアイコンをクリックするとデバッグGUI上でどの範囲が該当Widgetか確認できる。
+        mainAxisAlignment: MainAxisAlignment.center,  // ← Add this.
         children: [
           Text('A random AWESOME idea:'),
           BigCard(pair: pair),                // ← Change to this.
