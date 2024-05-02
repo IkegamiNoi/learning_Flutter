@@ -57,8 +57,8 @@ class MyHomePage extends StatelessWidget {
           /// 「Widget Tree」上のカーソルアイコンをクリックするとデバッグGUI上でどの範囲が該当Widgetか確認できる。
           mainAxisAlignment: MainAxisAlignment.center,  // ← Add this.
           children: [
-            Text('A random AWESOME idea:'),
             BigCard(pair: pair),                // ← Change to this.
+            SizedBox(height: 10),
             
             // ↓ Add this.
             ElevatedButton(
