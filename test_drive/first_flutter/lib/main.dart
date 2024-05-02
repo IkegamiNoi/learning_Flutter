@@ -89,7 +89,7 @@ class BigCard extends StatelessWidget {
     /// displayMedium の copyWith() を呼び出すと、定義した変更が反映されたテキスト スタイルのコピーが返されます。この場合は、テキストの色のみを変更しています。
     /// copyWithの()内にカーソルを合わせてCtrl+Shift+Space（Win / Linux）か Cmd+Shift+Space（Mac) で変更可能なプロパティを確認できる。
     final style = theme.textTheme.displayMedium!.copyWith(
-      /// theme.colorScheme.primary 以外にも、.secondary や .surface など無数にあります。これらの色のすべてに onPrimary と同等のものがあります。
+      /// theme.colorScheme.primary 以外にも、.secondary(色褪せ？) や .surface(グレーアウト？) など無数にあります。これらの色のすべてに onPrimary と同等のものがあります。
       color: theme.colorScheme.onPrimary,
     );
 
