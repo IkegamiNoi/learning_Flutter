@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          // アプリのテーマカラーを決める。変更するとアニメーションで色が変化する。
+          // UI を状態から状態へジャンプさせるのではなく、値と値の間を滑らかに補間します。
+          // カードの下の浮き上がりボタンの色も変化しています。これが、値をハードコードするのではなく、アプリ全体が対象の Theme を使用するメリットです。
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         ),
         home: MyHomePage(),
       ),
@@ -77,7 +80,13 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // アプリの現在のテーマをリクエスト
+    // MyApp までスクロールし、そこで ColorScheme のシード色を変更すると、この色とアプリ全体のカラーパターンを変更できます。
+    final theme = Theme.of(context);       // ← Add this.
+
     return Card(
+      // カードの色をテーマの colorScheme プロパティと同じになるよう定義しています。カラーパターンには多数の色が含まれていますが、primary がこのアプリの最も目立つ特徴的な色です。
+      color: theme.colorScheme.primary,    // ← And also this.
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Text(pair.asLowerCase),
