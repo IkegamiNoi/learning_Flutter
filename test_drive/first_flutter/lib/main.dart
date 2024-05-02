@@ -101,7 +101,13 @@ class BigCard extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         // ↓ Change this line.
         /// buildで定義したstyleを追加して文字のサイズ、色を変化させている。
-        child: Text(pair.asLowerCase, style: style),
+        
+        // ↓ Make the following change.
+        child: Text(
+          pair.asLowerCase,
+          style: style,
+          semanticsLabel: "${pair.first} ${pair.second}",
+        ),
       ),
     );
   }
