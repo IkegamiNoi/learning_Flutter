@@ -49,27 +49,29 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;                 // ← Add this.
 
     return Scaffold(
-      body: Column(
-        /// 親であるColumnの中央から子を並べるようにする。
-        /// 縦にも横にも中央寄せになるが、Columnが左端寄せになっているため、BigCardも左寄せの見た目になっている。
-        /// デバッグを起動していると表示されるメニューバー右端の虫眼鏡をクリックすると「Widget Inspector」が表示される。
-        /// 「Widget Tree」上のカーソルアイコンをクリックするとデバッグGUI上でどの範囲が該当Widgetか確認できる。
-        mainAxisAlignment: MainAxisAlignment.center,  // ← Add this.
-        children: [
-          Text('A random AWESOME idea:'),
-          BigCard(pair: pair),                // ← Change to this.
-          
-          // ↓ Add this.
-          ElevatedButton(
-            onPressed: () {
-              //print('button pressed!');
-              /// MyAppStateをappStateで宣言しているのでgetNext()を呼べている。
-              /// これによってボタンを押すたびにワードが変更される。
-              appState.getNext();  // ← This instead of print().
-            },
-            child: Text('Next'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          /// 親であるColumnの中央から子を並べるようにする。
+          /// 縦にも横にも中央寄せになるが、Columnが左端寄せになっているため、BigCardも左寄せの見た目になっている。
+          /// デバッグを起動していると表示されるメニューバー右端の虫眼鏡をクリックすると「Widget Inspector」が表示される。
+          /// 「Widget Tree」上のカーソルアイコンをクリックするとデバッグGUI上でどの範囲が該当Widgetか確認できる。
+          mainAxisAlignment: MainAxisAlignment.center,  // ← Add this.
+          children: [
+            Text('A random AWESOME idea:'),
+            BigCard(pair: pair),                // ← Change to this.
+            
+            // ↓ Add this.
+            ElevatedButton(
+              onPressed: () {
+                //print('button pressed!');
+                /// MyAppStateをappStateで宣言しているのでgetNext()を呼べている。
+                /// これによってボタンを押すたびにワードが変更される。
+                appState.getNext();  // ← This instead of print().
+              },
+              child: Text('Next'),
+            ),
+          ],
+        ),
       ),
     );
   }
