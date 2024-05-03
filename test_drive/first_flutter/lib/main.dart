@@ -76,6 +76,7 @@ class MyHomePage extends StatelessWidget {
 
             // ↓ Add this.
             Row(
+              mainAxisSize: MainAxisSize.min,   // ← Add this.
               children: [
                 ElevatedButton(
                   onPressed: () {
