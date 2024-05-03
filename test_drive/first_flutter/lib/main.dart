@@ -40,6 +40,20 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
+  // ↓ Add the code below.
+  /// MyAppState に favorites という新規のプロパティを追加しました。このプロパティは空のリスト [] で初期化されています。
+  var favorites = <WordPair>[];
+
+  /// お気に入りのリストから現在の単語ペアを取り除くか（すでにそこにある場合）、追加します（まだそこにない場合）。どちらの場合も、その後でこのコードから notifyListeners(); が呼び出されます。
+  void toggleFavorite() {
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -59,7 +73,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             BigCard(pair: pair),                // ← Change to this.
             SizedBox(height: 10),
-            
+
             // ↓ Add this.
             ElevatedButton(
               onPressed: () {
