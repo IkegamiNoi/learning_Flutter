@@ -75,14 +75,18 @@ class MyHomePage extends StatelessWidget {
             SizedBox(height: 10),
 
             // ↓ Add this.
-            ElevatedButton(
-              onPressed: () {
-                //print('button pressed!');
-                /// MyAppStateをappStateで宣言しているのでgetNext()を呼べている。
-                /// これによってボタンを押すたびにワードが変更される。
-                appState.getNext();  // ← This instead of print().
-              },
-              child: Text('Next'),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    //print('button pressed!');
+                    /// MyAppStateをappStateで宣言しているのでgetNext()を呼べている。
+                    /// これによってボタンを押すたびにワードが変更される。
+                    appState.getNext();  // ← This instead of print().
+                  },
+                  child: Text('Next'),
+                ),
+              ],
             ),
           ],
         ),
