@@ -59,10 +59,46 @@ class MyAppState extends ChangeNotifier {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;                 // ← Add this.
+    return Scaffold(
+      body: Row(
+        children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: false,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
+              ],
+              selectedIndex: 0,
+              onDestinationSelected: (value) {
+                print('selected: $value');
+              },
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: GeneratorPage(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-    // ↓ Add this.
+class GeneratorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var pair = appState.current;
+
     IconData icon;
     if (appState.favorites.contains(pair)) {
       icon = Icons.favorite;
@@ -70,46 +106,32 @@ class MyHomePage extends StatelessWidget {
       icon = Icons.favorite_border;
     }
 
-    return Scaffold(
-      body: Center(
-        child: Column(
-          /// 親であるColumnの中央から子を並べるようにする。
-          /// 縦にも横にも中央寄せになるが、Columnが左端寄せになっているため、BigCardも左寄せの見た目になっている。
-          /// デバッグを起動していると表示されるメニューバー右端の虫眼鏡をクリックすると「Widget Inspector」が表示される。
-          /// 「Widget Tree」上のカーソルアイコンをクリックするとデバッグGUI上でどの範囲が該当Widgetか確認できる。
-          mainAxisAlignment: MainAxisAlignment.center,  // ← Add this.
-          children: [
-            BigCard(pair: pair),                // ← Change to this.
-            SizedBox(height: 10),
-          
-
-            // ↓ Add this.
-            Row(
-              mainAxisSize: MainAxisSize.min,   // ← Add this.
-              children: [
-                // ↓ And this.
-                ElevatedButton.icon(
-                  onPressed: () {
-                    appState.toggleFavorite();
-                  },
-                  icon: Icon(icon),
-                  label: Text('Like'),
-                ),
-                SizedBox(width: 10),
-                
-                ElevatedButton(
-                  onPressed: () {
-                    //print('button pressed!');
-                    /// MyAppStateをappStateで宣言しているのでgetNext()を呼べている。
-                    /// これによってボタンを押すたびにワードが変更される。
-                    appState.getNext();  // ← This instead of print().
-                  },
-                  child: Text('Next'),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BigCard(pair: pair),
+          SizedBox(height: 10),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  appState.toggleFavorite();
+                },
+                icon: Icon(icon),
+                label: Text('Like'),
+              ),
+              SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  appState.getNext();
+                },
+                child: Text('Next'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
