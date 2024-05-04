@@ -59,11 +59,14 @@ class MyAppState extends ChangeNotifier {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /// Scaffold 以外のすべては GeneratorPage へ抽出された。
     return Scaffold(
       body: Row(
         children: [
+          /// SafeArea は、その子がハードウェア ノッチやステータスバーで隠れないようにするものです。このアプリでは、このウィジェットが NavigationRail を包んで、ナビゲーション ボタンがモバイル ステータスバーなどで隠されるのを防いでいます。
           SafeArea(
             child: NavigationRail(
+              /// NavigationRail の extended: false の行は true に変更できます。そうすることで、アイコンの隣にlabelで設定した文字列が表示されます。
               extended: false,
               destinations: [
                 NavigationRailDestination(
@@ -75,12 +78,16 @@ class MyHomePage extends StatelessWidget {
                   label: Text('Favorites'),
                 ),
               ],
+              /// ナビゲーションレールの選択されている場所を示す機能。「0」ならHomeのアイコンを「1」ならFavoritesのアイコンが選択表示になる。
               selectedIndex: 0,
+              /// ナビゲーションレールのアイコンを選択したときの動作を記述する。現在は選択されたIndexをPrintするだけ
               onDestinationSelected: (value) {
                 print('selected: $value');
               },
             ),
           ),
+          /// Expanded は余白を埋める機能がある。ナビゲーションレールより右を余白として埋めている。
+          /// ちなみにSafeAreaをExpandedに変更すると横方向の余白を2つで分け合うことになる。
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
@@ -93,6 +100,8 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
+/// MyHomePage に在った機能を持ってきている
+/// 
 class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
