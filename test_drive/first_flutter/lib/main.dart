@@ -56,7 +56,18 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+/// リファクタによってウィジェット内にステートメントを持てるようにした。
+/// 元々のMyHomePageクラスは_MyHomePageStateとなり、直接のアクセスが禁止になった。
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  /// 新しい変数 selectedIndex を導入し、0 に初期化しました。
+  var selectedIndex = 0;     // ← Add this property.
+
   @override
   Widget build(BuildContext context) {
     /// Scaffold 以外のすべては GeneratorPage へ抽出された。
@@ -79,10 +90,17 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
               /// ナビゲーションレールの選択されている場所を示す機能。「0」ならHomeのアイコンを「1」ならFavoritesのアイコンが選択表示になる。
-              selectedIndex: 0,
+              /// NavigationRail の定義で、先程まであったハードコードの 0 の代わりに、この新しい変数を使用します。
+              selectedIndex: selectedIndex,    // ← Change to this.
               /// ナビゲーションレールのアイコンを選択したときの動作を記述する。現在は選択されたIndexをPrintするだけ
               onDestinationSelected: (value) {
-                print('selected: $value');
+
+                // ↓ Replace print with this.
+                /// onDestinationSelected コールバックが呼び出されたときに、setState() の呼び出しの中で selectedIndex に代入します。この呼び出しは、前に使用した notifyListeners() メソッドに似ていますが、こちらは UI を更新するためのものです。
+                setState(() {
+                  selectedIndex = value;
+                });
+
               },
             ),
           ),
