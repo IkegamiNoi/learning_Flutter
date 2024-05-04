@@ -89,49 +89,60 @@ class _MyHomePageState extends State<MyHomePage> {
       }
 
     /// Scaffold 以外のすべては GeneratorPage へ抽出された。
-    return Scaffold(
-      body: Row(
-        children: [
-          /// SafeArea は、その子がハードウェア ノッチやステータスバーで隠れないようにするものです。このアプリでは、このウィジェットが NavigationRail を包んで、ナビゲーション ボタンがモバイル ステータスバーなどで隠されるのを防いでいます。
-          SafeArea(
-            child: NavigationRail(
-              /// NavigationRail の extended: false の行は true に変更できます。そうすることで、アイコンの隣にlabelで設定した文字列が表示されます。
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+    /// ここで LayoutBuilder はアプリ全体を指す。そのため、「constraints」もアプリ全体のサイズが入る。
+    /// LayoutBuilder の builder コールバックは、制約が変化するたびに呼び出されます。これは、次のような場合に発生します。
+    /// ・ユーザーがアプリのウィンドウのサイズを変更した。
+    /// ・ユーザーがスマートフォンの向きをポートレート モードから横表示に変えた、またはその逆を行った。
+    /// ・MyHomePage の横のウィジェットのサイズが大きくなり、MyHomePage の制約が小さくなった。
+    /// ・その他
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          body: Row(
+            children: [
+              /// SafeArea は、その子がハードウェア ノッチやステータスバーで隠れないようにするものです。このアプリでは、このウィジェットが NavigationRail を包んで、ナビゲーション ボタンがモバイル ステータスバーなどで隠されるのを防いでいます。
+              SafeArea(
+                child: NavigationRail(
+                  /// NavigationRail の extended: false の行は true に変更できます。そうすることで、アイコンの隣にlabelで設定した文字列が表示されます。
+                  /// bool値の2択からサイズ指定でアイコンよこにラベルを表示するかに変更した。
+                  extended: constraints.maxWidth >= 600,  // ← Here.
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  /// ナビゲーションレールの選択されている場所を示す機能。「0」ならHomeのアイコンを「1」ならFavoritesのアイコンが選択表示になる。
+                  /// NavigationRail の定義で、先程まであったハードコードの 0 の代わりに、この新しい変数を使用します。
+                  selectedIndex: selectedIndex,    // ← Change to this.
+                  /// ナビゲーションレールのアイコンを選択したときの動作を記述する。現在は選択されたIndexをPrintするだけ
+                  onDestinationSelected: (value) {
+        
+                    // ↓ Replace print with this.
+                    /// onDestinationSelected コールバックが呼び出されたときに、setState() の呼び出しの中で selectedIndex に代入します。この呼び出しは、前に使用した notifyListeners() メソッドに似ていますが、こちらは UI を更新するためのものです。
+                    setState(() {
+                      selectedIndex = value;
+                    });
+        
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
+              ),
+              /// Expanded は余白を埋める機能がある。ナビゲーションレールより右を余白として埋めている。
+              /// ちなみにSafeAreaをExpandedに変更すると横方向の余白を2つで分け合うことになる。
+              Expanded(
+                child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: page,  // ← Here.
                 ),
-              ],
-              /// ナビゲーションレールの選択されている場所を示す機能。「0」ならHomeのアイコンを「1」ならFavoritesのアイコンが選択表示になる。
-              /// NavigationRail の定義で、先程まであったハードコードの 0 の代わりに、この新しい変数を使用します。
-              selectedIndex: selectedIndex,    // ← Change to this.
-              /// ナビゲーションレールのアイコンを選択したときの動作を記述する。現在は選択されたIndexをPrintするだけ
-              onDestinationSelected: (value) {
-
-                // ↓ Replace print with this.
-                /// onDestinationSelected コールバックが呼び出されたときに、setState() の呼び出しの中で selectedIndex に代入します。この呼び出しは、前に使用した notifyListeners() メソッドに似ていますが、こちらは UI を更新するためのものです。
-                setState(() {
-                  selectedIndex = value;
-                });
-
-              },
-            ),
+              ),
+            ],
           ),
-          /// Expanded は余白を埋める機能がある。ナビゲーションレールより右を余白として埋めている。
-          /// ちなみにSafeAreaをExpandedに変更すると横方向の余白を2つで分け合うことになる。
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: page,  // ← Here.
-            ),
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
