@@ -70,6 +70,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    /// Widget 型の page という新しい変数を宣言しています。
+    Widget page;
+      /// switch 文で、selectedIndex の現在の値に基づいて、画面を page に代入しています。
+      switch (selectedIndex) {
+        case 0:
+          page = GeneratorPage();
+          break;
+        case 1:
+          /// FavoritesPage はまだないので、Placeholder という、配置した場所に十字が入った四角形を描画して、その部分の UI が未完成であることを示す便利なウィジェットを使用します。
+          page = Placeholder();
+          break;
+        default:
+          /// selectedIndex が 0 でも 1 でもない場合にエラーをスローするようにしています。これによって以降のバグを防ぐことができます。
+          /// ナビゲーション レールに新たなデスティネーションを追加して、コードの更新を忘れると、開発中にプログラムがクラッシュします
+          /// （機能しない理由を推測したり、バグのあるコードを製品版に入れて公開したりすることを避けられます）。
+          throw UnimplementedError('no widget for $selectedIndex');
+      }
+
     /// Scaffold 以外のすべては GeneratorPage へ抽出された。
     return Scaffold(
       body: Row(
@@ -109,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
-              child: GeneratorPage(),
+              child: page,  // ← Here.
             ),
           ),
         ],
