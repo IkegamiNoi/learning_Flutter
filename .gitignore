@@ -150,3 +150,8 @@ app.*.symbols
 !/test_drive/first_flutter/
 /test_drive/first_flutter/*
 !/test_drive/first_flutter/lib/
+
+# fist_flutter
+!/test_drive/riverpod/
+/test_drive/riverpod/*
+!/test_drive/riverpod/lib/
