@@ -9,6 +9,22 @@ class MyWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final s1 = ref.watch(s1NotifierProvider);
-    return Text('$s1');
+
+    final button = ElevatedButton(
+      onPressed: () {
+        final notifier = ref.read(s1NotifierProvider.notifier);
+        notifier.updateState();
+      },
+       child: const Text('ボタン'),
+    );
+    
+    // 縦に並べる
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('$s1'),
+        button,
+      ],
+    );
   }
 }
