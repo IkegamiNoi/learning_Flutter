@@ -6,6 +6,8 @@ class MyWidget extends Consumer {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Placeholder();
+
+    final s1 = ref.watch(s1NotifierProvider);
+    return Text(s1);
   }
 }
