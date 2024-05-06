@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:folder_manager/my_widget.dart';
+import 'my_widget.dart';
 
 void main() {
   const app = MyApp();
